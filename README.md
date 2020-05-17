@@ -52,7 +52,39 @@ The translation table has million of entries that maps page number with page fra
 For example, table[0] contains page 0's mapping pfn.
 If table[0].pfn = 3, then page 0 is mapped with pfn 3. 
 
-## demand paging
+
+## Two-level paging
+The page table size is quite large.
+When we consider 32 bit address space, 4KB paging, a process's page table consumes 1M entries; 
+further if we assume 4 bytes of page table entry, then the size of a page table is 4MB. 
+If we have 100 processes, 400MB should be used for translation table, which has no user data; but only translation-related metadata.
+
+OS researchers investigated the page table usages, and many parts are commonly used and many parts are empty.
+That is, the application's effective memory region is not so large in many cases.
+2-level and multi-level paging has introduced with the help of computer architecture.
+The address space is further divided into page directory, more than page frame.
+A page directory covers 4MB address space. (That is, single entry of page directory maps 4MB memory region.)
+In the case, 4GB memory region is divided into 1K (1024) page directories, each of which covers 4MB region.
+4MB page directory is further divided into 4KB pages, so that a page directory has 1024 pages.
+
+A good thing of multi-level page table is that we can omit the unnecessary page table entries.
+For example, in normal flat (1-level) page table structure, 4MB emptry region takes 1024 entries, and 4KB memory region in the page table.
+However, in the case of two-level paging, single entry at page directory, 4bytes, are enough to represent a 4MB empty mapping.
+The case is more obvious when we think of 100MB empty region.
+
+When we use 2-level paging, CPU conducts some more jobs in VA-to-PA translation.
+Now, CPU's translation table base register points to the page directory, instead of page table.
+The VA's high 10 bits are used as index into the page directory.
+That is, we identify the page directory entry, with the translation table base and index.
+The entry has a pointer to the page table, (beginning address of the page table) which has 1024 entries. 
+
+Then, VA's mid 10 bits are used as index into the page table.
+From the derived page table's base address in the previous step, and the mid index, we can identify the page table entry.
+The entry has a pfn (page frame number), which covers 4KB memory region.
+
+Inside the page frame, the lower 12 bits are used as page offset, and finally calculates the target address to PA.
+
+## Demand paging
 Initially page table is empty when OS creates a process. 
 That is, all page table entries are invalid.
 Note that every memory access goes through MMU-based VA-PA translation, if you enabled MMU.
@@ -94,37 +126,6 @@ To bring your data back to a free frame, 1) you need a free frame to get back.
 4) fills in the page table with the new pfn.
 
 Recall that MMU's translation table has all information, and page fault traps the access to the invalid page access, and triggers swap-in operation.
-
-## two-level paging
-The page table size is quite large.
-When we consider 32 bit address space, 4KB paging, a process's page table consumes 1M entries; 
-further if we assume 4 bytes of page table entry, then the size of a page table is 4MB. 
-If we have 100 processes, 400MB should be used for translation table, which has no user data; but only translation-related metadata.
-
-OS researchers investigated the page table usages, and many parts are commonly used and many parts are empty.
-That is, the application's effective memory region is not so large in many cases.
-2-level and multi-level paging has introduced with the help of computer architecture.
-The address space is further divided into page directory, more than page frame.
-A page directory covers 4MB address space. (That is, single entry of page directory maps 4MB memory region.)
-In the case, 4GB memory region is divided into 1K (1024) page directories, each of which covers 4MB region.
-4MB page directory is further divided into 4KB pages, so that a page directory has 1024 pages.
-
-A good thing of multi-level page table is that we can omit the unnecessary page table entries.
-For example, in normal flat (1-level) page table structure, 4MB emptry region takes 1024 entries, and 4KB memory region in the page table.
-However, in the case of two-level paging, single entry at page directory, 4bytes, are enough to represent a 4MB empty mapping.
-The case is more obvious when we think of 100MB empty region.
-
-When we use 2-level paging, CPU conducts some more jobs in VA-to-PA translation.
-Now, CPU's translation table base register points to the page directory, instead of page table.
-The VA's high 10 bits are used as index into the page directory.
-That is, we identify the page directory entry, with the translation table base and index.
-The entry has a pointer to the page table, (beginning address of the page table) which has 1024 entries. 
-
-Then, VA's mid 10 bits are used as index into the page table.
-From the derived page table's base address in the previous step, and the mid index, we can identify the page table entry.
-The entry has a pfn (page frame number), which covers 4KB memory region.
-
-Inside the page frame, the lower 12 bits are used as page offset, and finally calculates the target address to PA.
 
 Happy hacking!
 Seehwan
