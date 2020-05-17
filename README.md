@@ -3,6 +3,23 @@
 In this programming assignment, we will simulate one of virtual memory system, paging.
 This is 3-weeks code work, and 5-freeday rules also applied here.
 
+## Objective of the homework
+1. to simulate paging system with your own assumptions.
+-- there are several options to expand your work; so choose your difficulty level
+a. simple (16-bit address space, single process, demand paging)
+b. complicated (32-bit address space, 10 proc, demand paging, physical memory simulation)
+c. complex (32-bit addr space, 10 proc, demand paging, limited physical memory, swapping)
+
+2. sample input has the following format
+pid access_va rw
+
+3. sample output should be the following format
+pid access_va rw [accss_pa] mem_value
+
+4. you can make your own assumption, and this code work is open to extend.
+Please document if you implement your own things.
+(I strongly recommend you to try that.)
+
 ## Paging as a means of VA-PA mapping
 With the virtual memory, a process can work with its own logical address space, meaning that a user process can independently use memory from the other processes.
 For example, assume two different processes, P1 and P2. 
@@ -108,23 +125,6 @@ From the derived page table's base address in the previous step, and the mid ind
 The entry has a pfn (page frame number), which covers 4KB memory region.
 
 Inside the page frame, the lower 12 bits are used as page offset, and finally calculates the target address to PA.
-
-## Objective of the homework
-1. to simulate paging system with your own assumptions.
--- there are several options to expand your work; so choose your difficulty level
-a. simple (16-bit address space, single process, demand paging)
-b. complicated (32-bit address space, 10 proc, demand paging, physical memory simulation)
-c. complex (32-bit addr space, 10 proc, demand paging, limited physical memory, swapping)
-
-2. sample input has the following format
-pid access_va rw
-
-3. sample output should be the following format
-pid access_va rw [accss_pa] mem_value
-
-4. you can make your own assumption, and this code work is open to extend.
-Please document if you implement your own things.
-(I strongly recommend you to try that.)
 
 Happy hacking!
 Seehwan
