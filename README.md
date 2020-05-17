@@ -22,14 +22,18 @@ Please document if you implement your own things.
 
 ## Paging as a means of VA-PA mapping
 With the virtual memory, a process can work with its own logical address space, meaning that a user process can independently use memory from the other processes.
+
 For example, assume two different processes, P1 and P2. 
 P1 and P2 share physical memory because they are running concurrently.
-
 P1 has its own 4GB address space from 0 to 0xFFFF:FFFF.
 So does P2. 
 That is, P1's view of memory always begins from the address 0; and P2's view of memory also begins with the address 0.
-P1's memory address 0 should be different from P2's memory address 0;
-Virtual memory system provides per-process address space, which allows a process to use logical address, instead of physical address.
+P1's memory address 0 should be different from P2's memory address 0; How that can be possibly implemented in computer?
+Virtual memory system provides per-process address space, which allows a process to use logical memory address, instead of physical memory address.
+
+Virtual memory in modern OS enables this by VA-to-PA mapping. 
+With the virtual memory, all user process memory (address) are logical memory (address), instead of physical memory.
+Even without knowing where physically located in, a process can work only with logical memory address.
 
 Modern OS and computer architecture cooperates to implement a virtual memory system.
 To use with logical address, instead of physical address, computer architecture has MMU (memory management unit). 
