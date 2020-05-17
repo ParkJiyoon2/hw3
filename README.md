@@ -28,8 +28,8 @@ Usually, page size is 4KB; so 4GB address space (for 32 bit computers) is divide
 Then, the entire physical memory is also divided into page-sized fragments, called page frame (or simply frame). 
 One page is mapped onto a page frame, so that the 4KB page can have physical memory region.
 Page and page frame can be numbered with some index number. 
-For example, virtual address of 0~0xFFF is the page number 0, 0x1000~0x1FFF is the page number 1, and so one.
-Similarly, physical address of 0~0xFFF correspond to the page frame number (pfn) 0, 0x1000~0x1FFF correspond to the page frame number (pfn) 1.
+For example, virtual address of 0\~0xFFF is the page number 0, 0x1000\~0x1FFF is the page number 1, and so one.
+Similarly, physical address of 0\~0xFFF correspond to the page frame number (pfn) 0, 0x1000\~0x1FFF correspond to the page frame number (pfn) 1.
 
 The translation table has million of entries that maps page number with page frame number.
 For example, table[0] contains page 0's mapping pfn.
