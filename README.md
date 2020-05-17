@@ -128,4 +128,5 @@ To bring your data back to a free frame, 1) you need a free frame to get back.
 Recall that MMU's translation table has all information, and page fault traps the access to the invalid page access, and triggers swap-in operation.
 
 Happy hacking!
+
 Seehwan
