@@ -5,12 +5,13 @@ This is 3-weeks code work, and 5-freeday rule also applies here.
 
 ## Objective of the homework
 1. to simulate paging system with your own assumptions.
+there are several options to expand your work; so choose your difficulty level
 
--- there are several options to expand your work; so choose your difficulty level
-|option|choices|addr_space|Nproc|demand_pg|phys_mem|swapping|
-|a.| simple |16-bit address space| single process| demand paging| - | - |
-|b.| complicated |32-bit address space| 10 pro| demand paging| inf. physical memory simulation| - |
-|c.| complex |32-bit addr space| 10 proc| demand paging| limited physical memory| swapping|
+option|choices|addr_space|Nproc|demand_pg|phys_mem|swapping
+|------|---|---|---|---|---|---|
+a.| simple |16-bit address space| single process| demand paging| - | - 
+b.| complicated |32-bit address space| 10 procs| demand paging| inf. physical memory simulation| - 
+c.| complex |32-bit addr space| 10 procs| demand paging| limited physical memory| swapping
 
 2. sample input has the following format
 pid access_va rw
