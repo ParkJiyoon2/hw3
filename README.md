@@ -1,7 +1,7 @@
 # hw3, Virtual memory simulation By June 8
 
 In this programming assignment, we will simulate one of virtual memory system, paging.
-This is 3-weeks code work, and 5-freeday rules also applied here.
+This is 3-weeks code work, and 5-freeday rule also applies here.
 
 ## Objective of the homework
 1. to simulate paging system with your own assumptions.
