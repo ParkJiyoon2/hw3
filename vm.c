@@ -19,7 +19,7 @@ void init_pmem()
 	}
 }
 
-void access_pa(int pid, int va, int pa)
+int access_pa(int pid, int va)
 {
 
 }
