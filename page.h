@@ -14,6 +14,7 @@ struct frame *
 	get_free_frame();
 
 void page_init();
+void next_free_frame();
 
 #define NPROC		1 // assume total # proc.
 
