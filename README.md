@@ -1,6 +1,14 @@
 
 # Branch 32160462
 
+
+- assumption
+```
+메모리 X 에는 = X + 0x1:0000 값이 들어있다. 
+프리페이지 리스트는 반드시 최소 1개는 있어야 한다. (길이 무조건 1이상)
+프리프레임 반납은 stack. push | 사용은 stack pop
+```
+
 - TODO LIST
 
 - input_vm-light
@@ -134,6 +142,22 @@ pid: 1, va: 0x00198666 pa: [0x010c1666] = 0x010C1666
 pid: 1, va: 0x0011775a pa: [0x0110275a] = 0x0110275A
 pid: 1, va: 0x003e752e pa: [0x002db52e] = 0x002DB52E
 pid: 1, va: 0x00320abb pa: [0x0223eabb] = 0x0223EABB
+```
+
+
+- 메모리 부족
+
+```
+fault!❌ freepfn: 0xfc pgn: 0x3d6 pid: 1
+pid: 1, va: 0x003d6289 pa: [0x000fc289] = 0x0010C289 ✔
+fault!❌ freepfn: 0xfd pgn: 0x355 pid: 1
+pid: 1, va: 0x003550d3 pa: [0x000fd0d3] = 0x0010D0D3 ✔
+pid: 1, va: 0x002a834b pa: [0x000b534b] = 0x000C534B ✔
+fault!❌ freepfn: 0xfe pgn: 0x1dd pid: 1
+pid: 1, va: 0x001dd3b8 pa: [0x000fe3b8] = 0x0010E3B8 ✔
+fault!❌ freepfn: 0xff pgn: 0x34f pid: 1
+pid: 1, va: 0x0034fd8b pa: [0x000ffd8b] = 0x0010FD8B ✔
+ERROR: No free page
 ```
 
 # hw3, Virtual memory simulation By June 8

@@ -1,18 +1,23 @@
+
+// assume Pmem 4MB - [0x000000 ~ 0xFFFFFF]  -> 16M * 4B
+#define REM_SPACE 0x1000000   // REM SPACE - 64MB
+#define DISK_SPACE 0x10000000 // DISK SPACE - 512MB
 // free frame list
 
 struct frame
 {
     int pfn;
-
+    int occur;       // 빈도
     struct frame *p; //previous
     struct frame *n; //next
 };
+#define PGF_SIZE 0x1000                   // 12bit
+#define MAX_FRAMES (REM_SPACE / PGF_SIZE) // 24/12bit, = 12bit =  4K 개
+struct frame page_frame[MAX_FRAMES];      // 1M frames: 1M*4K=4GB 메모리 까지 커버
 
-#define MAX_FRAMES 0x100000          // 1M 개, 최대갯수
-struct frame page_frame[MAX_FRAMES]; // 1M frames: 1M*4K=4GB 메모리 까지 커버
-
-struct frame *get_free_frame();
-
+struct frame *get_free_frame();                          // frame 대여 = stack.pop
+struct frame *restore_free_frame(struct frame *restore); // frame 반납 = stack.push
+struct frame *find_evict_frame();                        // frame evict
 void page_init();
 
 #define NPROC 10 // assume total # proc.
