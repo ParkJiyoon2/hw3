@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "page.h"
 
 // assume Pmem 1MB
@@ -24,6 +25,8 @@ int access_pa(int pid, int va)
 
 }
 
+extern int pg_table[NPROC][PG_TBL_SIZE];
+
 void main(int argc, char *argv[])
 {
 	char *input_file_name = "input_vm";;
@@ -40,7 +43,7 @@ void main(int argc, char *argv[])
 
 	int pg;
 	int pg_offset;
-	size_t len;
+	size_t len;	//unsigned type to store line
 
 	if (argc == 2) {
 		input_file_name = argv[1];
@@ -57,6 +60,8 @@ void main(int argc, char *argv[])
 
 		pid = strtol(pid_str, &e, 16);
 		va = strtol(va_str, &e, 16);
+		pg = va / pow(16,3);
+		pg_offset = va - pg*pow(16,3);
 		pa = 0; // needs to be translated from va
 		printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X\n", pid, va, pa, PMem[pa]);
 	}

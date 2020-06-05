@@ -15,9 +15,9 @@ struct frame *
 
 void page_init();
 
-#define NPROC		1 // assume total # proc.
+#define NPROC		10 // assume total # proc.
 
-#define ADDR_SIZE	(1<<16)
+#define ADDR_SIZE	(1UL<<32)
 #define PG_SIZE		0x1000
 #define PG_TBL_SIZE	(ADDR_SIZE / PG_SIZE)
 
