@@ -4,14 +4,16 @@
 #include "page.h"
 
 // assume Pmem 1MB - [0x00000 ~ 0xFFFFF]  -> 1B
-int PMem[0x100000]; // 2**
+// int PMem[0x100000]; // 2**
+
+// assum Pmem is infinite
 
 void init_pmem()
 {
     int i;
     for (i = 0; i < 0x100000; i++)
     {
-        PMem[i] = i;
+        //PMem[i] = i;
     }
 }
 // like  - MMU
@@ -22,7 +24,6 @@ int access_pa(int pid, int va)
     int offset = 0x00000fff & va;
 
     // printf("va : %08x page_n : %08x|%d offset : %08x Table: %d\n", va, page_n, page_n, offset, pg_table[pid][page_n]);
-
     //  pg_table | 매핑  있으면 pfn , 없으면 새롭게 매핑
     if (pg_table[pid][page_n] != -1)
     {
@@ -34,6 +35,7 @@ int access_pa(int pid, int va)
     if (res == NULL)
     {
         printf("ERROR: No free page\n");
+        exit(-1);
         return 0;
     }
     pg_table[pid][page_n] = res->pfn;
@@ -70,7 +72,7 @@ void main(int argc, char *argv[])
     fp = fopen(input_file_name, "r");
 
     page_init();
-    init_pmem();
+    //init_pmem();
 
     // get a line from input
     while (getline(&line, &len, fp) != -1)
@@ -82,14 +84,14 @@ void main(int argc, char *argv[])
         pid = strtol(pid_str, &e, 16);
         va = strtol(va_str, &e, 16);
         pa = access_pa(pid, va); // needs to be translated from va
-        printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X \n", pid, va, pa, PMem[pa]);
+        printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X \n", pid, va, pa, pa);
     }
-    print2D_(8, pg_table);
-    printf("     Pgn | Pgfn     \n");
-    for (int i = 0; i < PG_TBL_SIZE; i++)
-    {
-        printf(" %08x| %08x \n", i, pg_table[8][i]);
-    }
+    // print2D_(8, pg_table);
+    // printf("     Pgn | Pgfn     \n");
+    // for (int i = 0; i < PG_TBL_SIZE; i++)
+    // {
+    //     printf(" %08x| %08x \n", i, pg_table[8][i]);
+    // }
 
     fclose(fp);
 }
