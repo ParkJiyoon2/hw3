@@ -17,6 +17,15 @@ struct frame *get_free_frame()
 
     return res;
 }
+void print2D_(int pid, int arr[][PG_TBL_SIZE])
+{
+
+    for (int j = 0; j < PG_TBL_SIZE; j++)
+    {
+        printf("%d ", pg_table[pid][j]);
+    }
+    printf("\n");
+}
 void print2D(int arr[][PG_TBL_SIZE])
 {
     for (int i = 0; i < NPROC; i++)

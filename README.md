@@ -3,6 +3,88 @@
 
 - TODO LIST
 
+- input_vm-light
+
+```c
+fault!❌ freepfn: 0x0 pgn: 0xc pid: 8
+pid: 8, va: 0x0000c4f6 pa: [0x000004f6] = 0x000004F6
+pid: 8, va: 0x0000ca81 pa: [0x00000a81] = 0x00000A81
+fault!❌ freepfn: 0x1 pgn: 0xb pid: 8
+pid: 8, va: 0x0000b81c pa: [0x0000181c] = 0x0000181C
+fault!❌ freepfn: 0x2 pgn: 0x2 pid: 8
+pid: 8, va: 0x00002d5b pa: [0x00002d5b] = 0x00002D5B
+pid: 8, va: 0x00002b94 pa: [0x00002b94] = 0x00002B94
+fault!❌ freepfn: 0x3 pgn: 0x4 pid: 8
+pid: 8, va: 0x00004072 pa: [0x00003072] = 0x00003072
+fault!❌ freepfn: 0x4 pgn: 0x7 pid: 8
+pid: 8, va: 0x00007d72 pa: [0x00004d72] = 0x00004D72
+fault!❌ freepfn: 0x5 pgn: 0x1 pid: 8
+pid: 8, va: 0x000011ad pa: [0x000051ad] = 0x000051AD
+fault!❌ freepfn: 0x6 pgn: 0x3 pid: 8
+pid: 8, va: 0x000031a8 pa: [0x000061a8] = 0x000061A8
+fault!❌ freepfn: 0x7 pgn: 0xf pid: 8
+pid: 8, va: 0x0000f3d0 pa: [0x000073d0] = 0x000073D0
+-1 5 2 6 3 -1 -1 4 -1 -1 -1 1 0 -1 -1 7
+     Pgn | Pgfn
+ 00000000| ffffffff
+ 00000001| 00000005
+ 00000002| 00000002
+ 00000003| 00000006
+ 00000004| 00000003
+ 00000005| ffffffff
+ 00000006| ffffffff
+ 00000007| 00000004
+ 00000008| ffffffff
+ 00000009| ffffffff
+ 0000000a| ffffffff
+ 0000000b| 00000001
+ 0000000c| 00000000
+ 0000000d| ffffffff
+ 0000000e| ffffffff
+ 0000000f| 00000007
+```
+
+- input_vm
+
+```c
+pid: 8, va: 0x0000f446 pa: [0x00007446] = 0x00007446
+pid: 8, va: 0x00002866 pa: [0x00002866] = 0x00002866
+pid: 8, va: 0x000063b8 pa: [0x0000c3b8] = 0x0000C3B8
+pid: 8, va: 0x0000ebe1 pa: [0x0000dbe1] = 0x0000DBE1
+pid: 8, va: 0x0000099b pa: [0x0000f99b] = 0x0000F99B
+pid: 8, va: 0x000004fc pa: [0x0000f4fc] = 0x0000F4FC
+pid: 8, va: 0x0000c5f4 pa: [0x000005f4] = 0x000005F4
+pid: 8, va: 0x0000521c pa: [0x0000a21c] = 0x0000A21C
+pid: 8, va: 0x00009f7a pa: [0x00008f7a] = 0x00008F7A
+pid: 8, va: 0x0000122c pa: [0x0000522c] = 0x0000522C
+pid: 8, va: 0x0000e28b pa: [0x0000d28b] = 0x0000D28B
+pid: 8, va: 0x0000aadd pa: [0x0000eadd] = 0x0000EADD
+pid: 8, va: 0x0000fd43 pa: [0x00007d43] = 0x00007D43
+pid: 8, va: 0x0000e862 pa: [0x0000d862] = 0x0000D862
+
+...
+pid: 8, va: 0x0000ceae pa: [0x00000eae] = 0x00000EAE
+pid: 8, va: 0x0000ddc4 pa: [0x0000bdc4] = 0x0000BDC4
+15 5 2 6 3 10 12 4 9 8 14 1 0 11 13 7
+     Pgn | Pgfn
+ 00000000| 0000000f
+ 00000001| 00000005
+ 00000002| 00000002
+ 00000003| 00000006
+ 00000004| 00000003
+ 00000005| 0000000a
+ 00000006| 0000000c
+ 00000007| 00000004
+ 00000008| 00000009
+ 00000009| 00000008
+ 0000000a| 0000000e
+ 0000000b| 00000001
+ 0000000c| 00000000
+ 0000000d| 0000000b
+ 0000000e| 0000000d
+ 0000000f| 00000007
+```
+
 # hw3, Virtual memory simulation By June 8
 
 In this programming assignment, we will simulate one of virtual memory system, paging.

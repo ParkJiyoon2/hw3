@@ -26,3 +26,4 @@ void page_init();
 //TODO: 0으로 초기화되어있는데, -1 로 초기화.
 int pg_table[NPROC][PG_TBL_SIZE];
 void print2D(int arr[][PG_TBL_SIZE]);
+void print2D_(int pid, int arr[][PG_TBL_SIZE]);

@@ -84,6 +84,12 @@ void main(int argc, char *argv[])
         pa = access_pa(pid, va); // needs to be translated from va
         printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X \n", pid, va, pa, PMem[pa]);
     }
+    print2D_(8, pg_table);
+    printf("     Pgn | Pgfn     \n");
+    for (int i = 0; i < PG_TBL_SIZE; i++)
+    {
+        printf(" %08x| %08x \n", i, pg_table[8][i]);
+    }
 
     fclose(fp);
 }
