@@ -10,7 +10,7 @@
 // assume Pmem 1MB
 // PMem = 4byte 짜리로 1MB 개만듬.
 int PMem[0x100000];
-int pg_table[NPROC][PG_TBL_SIZE]= {-1,};
+extern int pg_table[NPROC][PG_TBL_SIZE];
 
 //PMem의 i인덱스 값을 i로 초기화 해주는 함수
 void init_pmem()
@@ -25,13 +25,16 @@ void init_pmem()
 int access_pa(int pid, int va)
 {
 	int pa=0;
-	int l1 = va * (0x11110000);//table index
-	int offset = va * (0x111);
-
-	if(pg_table[0][l1] = -1 )//table에 index가 존재하는지?
+	// 1111 1111 1111 1111 1111 0000 0000 0000 
+	int l1 = va & (0b11111111111111111111000000000000);//table index
+	// 0000 0000 0000 0000 0000 1111 1111 1111        
+	int offset = va & (0b00000000000000000000111111111111);
+		
+	if(pg_table[0][l1] == -1 )//table에 index가 존재하는지?
 		printf("Demand paging 요구가 발생하였습니다.");
 		pg_table[0][l1] = get_free_frame()->pfn; // Demand paging
-	pa = l1+offset;
+	pa = pg_table[0][l1]+offset;
+	printf("l1=%x , offset=%x \n",pg_table[0][l1],offset);
 	return pa;
 }
 
@@ -63,7 +66,15 @@ void main(int argc, char *argv[])
 	//pglist.c에 구현되있음
 	page_init();
 	init_pmem();
-
+	
+	//확인
+	printf("===========================================");
+	int i=0;
+	while(i<1000){
+		printf("pg_table[0][%d]= %d\n",i,pg_table[0][i]);
+		i++;
+	}
+/*
 	// get a line from input
 	while (getline(&line, &len, fp) != -1) {//한줄씩 읽는다.
 		pid_str = strtok_r(line, " \n", &saveptr);
@@ -79,4 +90,5 @@ void main(int argc, char *argv[])
 	}
 
 	fclose(fp);
+*/
 }
