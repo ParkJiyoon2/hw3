@@ -10,7 +10,7 @@
 // assume Pmem 1MB
 // PMem = 4byte 짜리로 1MB 개만듬.
 int PMem[0x100000];
-extern int pg_table[NPROC][PG_TBL_SIZE];
+int pg_table[NPROC][PG_TBL_SIZE]={-1,};
 
 //PMem의 i인덱스 값을 i로 초기화 해주는 함수
 void init_pmem()

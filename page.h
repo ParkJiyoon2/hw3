@@ -21,4 +21,4 @@ void page_init();
 #define PG_SIZE		0x1000
 #define PG_TBL_SIZE	(ADDR_SIZE / PG_SIZE)
 
-int pg_table[NPROC][PG_TBL_SIZE]={-1,};
+extern int pg_table[NPROC][PG_TBL_SIZE];
