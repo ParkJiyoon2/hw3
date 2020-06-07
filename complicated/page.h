@@ -7,7 +7,7 @@ struct frame {
 	struct frame *n;
 };
 
-#define MAX_FRAMES 0x1000
+#define MAX_FRAMES 0x1000000
 struct frame page_frame[MAX_FRAMES]; // 4K frames: 4K*4K=16M
 
 struct frame *
@@ -18,9 +18,9 @@ void next_free_frame();
 
 #define NPROC		10 // assume total # proc.
 
-#define ADDR_SIZE	(1<<16)
+#define ADDR_SIZE	(1<<16) //X -> 주소 공간 32비트로 가정
 #define PG_SIZE		0x1000
-#define PG_TBL_SIZE	(ADDR_SIZE / PG_SIZE)
+#define PG_TBL_SIZE	0x100000
 
 int pg_table[NPROC][PG_TBL_SIZE];
 
