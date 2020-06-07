@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "page.h"
+#include "pglist.h"
 
 // assume Pmem 1MB
 int PMem[0x100000];
@@ -65,6 +66,39 @@ int access_pa(int pid, int va, int *ptr, int *pfn)
 	return cvted;
 }
 
+int two_level_paging(int pid, int va){
+	char tmp[11];
+	sprintf(tmp, "%x", addr);
+	
+	char dir[4];
+	char index[3];
+	char offset[4];
+	
+	int first;
+	int second;
+	int off;
+	
+	int p_addr;
+	int len = strlen(tmp);
+	
+	strncpy(dir, tmp, 3); dir[3] = '\0';
+	strncpy(index, tmp+len-5, 2); index[2] = '\0';
+	strncpy(offset, tmp+len-3, 3); offset[3] = '\0';
+	
+	first = strtol(dir, NULL, 16);
+	first = (first * 4) + 0x10000;
+	first = first >> 10; first = first << 10;
+	
+	second = strtol(index, NULL, 16);
+	second = (second * 4) + first + 0x10000;
+	second = second >> 12; second = second << 12;
+	
+	off = strtol(offset, NULL, 16);
+	p_addr = second + off;
+	
+	return p_addr;
+}
+
 void main(int argc, char *argv[])
 {
 	char *input_file_name = "input_vm";;
@@ -100,11 +134,14 @@ void main(int argc, char *argv[])
 
 		pid = strtol(pid_str, NULL, 16);
 		va = strtol(va_str, NULL, 16);
-		pa = access_pa(pid, va, &flag, &freepfn);
+		//pa = access_pa(pid, va, &flag, &freepfn);
 		//pa = 0;
+		pa = two_level_paging(pid, va);
+		/*
 		if(flag == 0) {
 			printf("Page Fault!! freepfn: 0x%x ", freepfn);
 		}
+		*/
 		printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X\n", pid, va, pa, PMem[pa]);
 	}
 	free(line);
