@@ -7,15 +7,14 @@ struct frame {
 	struct frame *n;
 };
 
-#define MAX_FRAMES 0x1000
+#define MAX_FRAMES 0xff // 1MB / 4kb = 256개의 page frame
 struct frame page_frame[MAX_FRAMES]; // 4K frames: 4K*4K=16M
 
-struct frame *
-	get_free_frame();
+int get_free_frame();
 
 void page_init();
 
-#define NPROC		1 // assume total # proc.
+#define NPROC		10 // assume total # proc.
 
 #define ADDR_SIZE	(1<<16)
 #define PG_SIZE		0x1000
