@@ -26,7 +26,7 @@ void init_pg_table(){
 	}
 }
 
-long access_pa(int pid, int va, FILE *ofp){
+long access_pa(int pid, int va){
 	
 	if(pg_table[pid][va>>12]==-1){ //MAPPING이 안되어 있으면 demand paging 실시
 		free_list=get_free_frame(); //해당 노드를 가져옴	
@@ -63,7 +63,6 @@ int main(int argc, char *argv[])
 	int pa;
 	size_t len;
 
-	FILE* ofp=fopen("output_vm.text", "w");
 
 	if(argc==2){ //매개변수 확인
 		input_file_name = argv[1];
@@ -82,7 +81,7 @@ int main(int argc, char *argv[])
 		process_id=strtol(pid_str, &e, 16); //프로세스 ID
 		
 		va=strtol(va_str, &e, 16); //가상 메모리 주소
-		pa=access_pa(process_id, va, ofp); //물리 메모리 주소
+		pa=access_pa(process_id, va); //물리 메모리 주소
 		
 		printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08x\n", process_id, va, pa, PMem[pa]);
 	}
