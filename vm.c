@@ -21,11 +21,11 @@ void access_pa(int pid, int va) {
 	int pa;
 	if (pg_table[NPROC][va >> 12] == -1) {		
 		pg_table[NPROC][va >> 12] = get_free_frame() -> p -> pfn;		
-		printf("^11234^fault! freepfn: 0x%x pgn: 0x%x ", pg_table[NPROC][va >> 12], va >> 12);
+		printf("fault! freepfn: 0x%x pgn: 0x%x ", pg_table[NPROC][va >> 12], va >> 12);
 												
 	}
 	pa = (pg_table[NPROC][va >> 12]<<12) + (va & 0x00000fff);	
-	printf("8pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X\n", pid, va, pa, PMem[pa]);
+	printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X\n", pid, va, pa, PMem[pa]);
 }
 
 void main(int argc, char *argv[])
