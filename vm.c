@@ -18,7 +18,11 @@ void init_pmem()
 		PMem[i] = i;
 	}
 }
-
+void init_pg_table() {	//-1로 초기화
+	for (int i = 0; i < PG_TBL_SIZE; i++) {
+		pg_table[NPROC][i] = -1;
+	}
+}
 int access_pa(int pid, int va)
 {
 
