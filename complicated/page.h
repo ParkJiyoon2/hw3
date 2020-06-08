@@ -1,7 +1,7 @@
 // free frame list
 
 struct frame {
-	int pfn;				//page frame number						
+	int pfn;			//page frame number						
 	struct frame *p;		//previous frame name
 	struct frame *n;		//next frame name
 };
