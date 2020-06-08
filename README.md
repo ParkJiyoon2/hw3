@@ -7,7 +7,7 @@
 
 **모든 메모리 접근 과정을 확인하려면, config.h 파일에서 `DEBUG` 변수의 주석을 해제합니다.**
 
-─ inputfile0.raw — Demand paging 테스트용 1MB + 3bytes 
+─ inputfile0.raw — Demand paging 테스트용 1MB + 3bytes  
 ─ inputfile1.raw — README.md 복사본
 
 ```
@@ -24,7 +24,6 @@ example) 3 0xcafebabe 16
 (0x6b8b456f) 0x69 [i] 0x72 [r] 0x74 [t] 0x75 [u] 0x61 [a] 0x6c [l] 0x20 [ ] 0x6d [m]
 (0x6b8b4577) 0x65 [e] 0x6d [m] 0x6f [o] 0x72 [r] 0x79 [y] 0x20 [ ] 0x73 [s] 0x69 [i]
 (0x6b8b457f) 0x6d [m] 0x75 [u] 0x6c [l] 0x61 [a] 0x74 [t] 0x69 [i] 0x6f [o] 0x6e [n]
-Read end!
 Read end!
 ```
 
