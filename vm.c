@@ -5,7 +5,6 @@
 
 
 int PMem[0x100000];
-//static struct frame *free_list;
 
 
 void init_pmem()
@@ -18,13 +17,18 @@ void init_pmem()
 
 
 void access_pa(int pid, int va) {
+	int pa_1;
+	int pa_2;
 	int pa;
+	
 	if (pg_table[NPROC][va >> 12] == -1) {		
 		pg_table[NPROC][va >> 12] = get_free_frame() -> p -> pfn;		
 		printf("fault! freepfn: 0x%x pgn: 0x%x ", pg_table[NPROC][va >> 12], va >> 12);
 												
 	}
-	pa = (pg_table[NPROC][va >> 12]<<12) + (va & 0x00000fff);	
+	pa_1 = pg_table[NPROC][va >> 12]; // pg_tbl로 매핑
+	pa_2 = pa_1<<12; 
+	pa = pa_2 + (va & 0x00000fff);	// offset 추가 real address
 	printf("pid: %d, va: 0x%08x pa: [0x%08x] = 0x%08X\n", pid, va, pa, PMem[pa]);
 }
 
@@ -52,9 +56,9 @@ void main(int argc, char *argv[])
 	page_init();		
 	init_pmem();		
 
-	// init page table
+	
 	//pg_table[NPROC][PG_TBL_SIZE] 
-	for(int i = 0; i<PG_TBL_SIZE; i++){
+	for(int i = 0; i<PG_TBL_SIZE; i++){// init page table
 	memset(pg_table[i], -1, sizeof(NPROC) * PG_TBL_SIZE );
 	}
 	
@@ -66,5 +70,4 @@ void main(int argc, char *argv[])
 
 	fclose(fp);
 }
-
 
