@@ -22,3 +22,4 @@ void page_init();     //page 초기화
 #define PG_TBL_SIZE	(ADDR_SIZE / PG_SIZE)		
 
 int pg_table[NPROC][PG_TBL_SIZE];
+int pg_table2[NPROC][PG_TBL_SIZE];// 2level-paging?
